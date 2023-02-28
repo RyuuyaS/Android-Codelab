@@ -1,63 +1,66 @@
 package com.example.tipcaculator
 
+import android.content.Context
 import android.os.Bundle
-import android.widget.Button
-import android.widget.EditText
-import android.widget.RadioButton
-import android.widget.RadioGroup
-import android.widget.Switch
-import android.widget.TextView
+import android.view.KeyEvent
+import android.view.View
+import android.view.inputmethod.InputMethodManager
 import androidx.appcompat.app.AppCompatActivity
-import kotlin.math.floor
-import kotlin.math.roundToInt
+import com.example.tipcaculator.databinding.ActivityMainBinding
+import java.text.NumberFormat
 
 
 class MainActivity : AppCompatActivity() {
     private var cost: Double = 0.0
-    private var stringPercent: String = ""
     private var intPercent = 0
     private var buffer: String = ""
-    private lateinit var btnCaculate: Button
-    private lateinit var etMoney: EditText
-    private lateinit var etPercent: RadioGroup
-    private lateinit var tvResult: TextView
-    private lateinit var switchRoundUp: Switch
+    private lateinit var binding: ActivityMainBinding
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
-        btnCaculate = findViewById<Button>(R.id.btnCalculate)
-        etMoney = findViewById<EditText>(R.id.etInputCost)
-        etPercent = findViewById<RadioGroup>(R.id.rgOption)
-        tvResult = findViewById<TextView>(R.id.tvResult)
-        switchRoundUp = findViewById<Switch>(R.id.swRoundTip)
-        btnCaculate.setOnClickListener {
-            buffer = etMoney.text.toString()
+        binding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+        binding.etInputCost.setOnKeyListener { view, keyCode, _ ->
+            handleKeyEvent(view, keyCode)
+        }
+        binding.btnCalculate.setOnClickListener {
+            buffer = binding.etInputCost.text.toString()
             if (buffer.isNotEmpty()) {
-                cost = etMoney.text.toString().toDouble()
+                cost = binding.etInputCost.text.toString().toDouble()
                 intPercent = getPercent()
                 var result: Double = cost * intPercent / 100
-                checkSwitchRoundUp(result)
+                if (binding.swRoundTip.isChecked) {
+                    result = kotlin.math.ceil(result)
+                }
+                displayTip(result)
             } else {
-                tvResult.text = "0"
+                binding.tvTipAmount.text = getString(R.string.tip_amount, "0")
             }
         }
     }
 
-    private fun checkSwitchRoundUp(result: Double): Unit {
-        if (switchRoundUp.isChecked) {
-            tvResult.text = result.roundToInt().toString()
-        } else {
-            tvResult.text = floor(result).toInt().toString()
-        }
+    private fun displayTip(result: Double): Unit {
+        val tip = NumberFormat.getCurrencyInstance().format(result)
+        binding.tvTipAmount.text = getString(R.string.tip_amount, tip)
     }
 
     private fun getPercent(): Int {
-        stringPercent = findViewById<RadioButton>(etPercent.checkedRadioButtonId).text.toString()
-        for (i in stringPercent.indices) {
-            if (stringPercent[i] == '%') {
-                return Integer.parseInt(stringPercent.substring(i - 2, i))
-            }
+        intPercent = binding.rgOption.checkedRadioButtonId
+        return when (intPercent) {
+            R.id.rbEighteenPercent -> 18
+            R.id.rbFifteenPercent -> 15
+            R.id.rbTwentyPercent -> 20
+            else -> 0
         }
-        return 0
+    }
+
+    private fun handleKeyEvent(view: View, keyCode: Int): Boolean {
+        if (keyCode == KeyEvent.KEYCODE_ENTER) {
+            val inputMethodManager =
+                getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+            inputMethodManager.hideSoftInputFromWindow(view.windowToken, 0)
+            return true
+        }
+        return false
     }
 }
