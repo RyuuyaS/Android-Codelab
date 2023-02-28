@@ -34,7 +34,7 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = Color(156, 184, 231),
                 ) {
-                    FinalApp()
+                    BusinessCard()
                 }
             }
         }
@@ -62,18 +62,6 @@ fun Introduction() {
             color = Color.White,
             fontSize = 24.sp,
         )
-    }
-}
-
-@Preview(showBackground = true)
-@Composable
-fun PreviewIntroduction() {
-    BusinessCardTheme {
-        Surface(
-            color = Color(156, 184, 231),
-        ) {
-            Introduction()
-        }
     }
 }
 
@@ -119,29 +107,19 @@ fun BusinessCardInfo() {
     }
 }
 
-@Preview(showBackground = true)
 @Composable
-fun PreviewBusinessCardInfo() {
-    Surface(
-        color = Color(156, 184, 231)
-    ) {
-        BusinessCardInfo()
-    }
-}
-
-@Composable
-fun FinalApp() {
+fun BusinessCard() {
     Introduction()
     BusinessCardInfo()
 }
 
 @Preview(showBackground = true)
 @Composable
-fun PreviewFinalApp() {
+fun PreviewBusinessCard() {
     Surface(
         modifier = Modifier.fillMaxSize(),
         color = Color(156, 184, 231),
     ) {
-        FinalApp()
+        BusinessCard()
     }
 }
