@@ -1,0 +1,15 @@
+<resources>
+    <string name="app_name">Art Space</string>
+    <string name="still_life">Still Life - Vase with Fifteen Sunflowers</string>
+    <string name="still_life_author">Vincent Van Gogh(1888)</string>
+    <string name="red_vineyards">Red Vineyards at Arles</string>
+    <string name="red_vineyards_author">Vincent Van Gogh(1888)</string>
+    <string name="irises">Irises</string>
+    <string name="irises_author">Vincent Van Gogh(1889)</string>
+    <string name="the_starry_night">The Starry Night</string>
+    <string name="the_starry_night_author">Vincent Van Gogh(1889)</string>
+    <string name="mona_lisa">Mona Lisa</string>
+    <string name="mona_lisa_author">Leonardo Da Vinci(1503)</string>
+    <string name="the_last_super">The Last Super</string>
+    <string name="the_last_super_author">Leonardo Da Vinci(1498)</string>
+</resources>
