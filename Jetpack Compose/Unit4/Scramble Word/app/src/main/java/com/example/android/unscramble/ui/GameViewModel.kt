@@ -14,9 +14,7 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 
-class GameViewModel(
-    private val savedStateHandle: SavedStateHandle
-) : ViewModel() {
+class GameViewModel() : ViewModel() {
     private lateinit var currentWord: String
     private var usedWord: MutableSet<String> = mutableSetOf()
 
