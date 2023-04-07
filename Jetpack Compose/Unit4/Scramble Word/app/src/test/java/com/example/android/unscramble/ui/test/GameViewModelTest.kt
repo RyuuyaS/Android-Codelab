@@ -104,4 +104,21 @@ test method is executed, JUnit creates a new instance of the test class.
         // Assert that after 10 questions are answered, the game is over.
         assertTrue(currentGameUiState.isGameOver)
     }
+
+    @Test
+    fun gameViewModel_WordSkip_ScoreUnchangeAndWordCountIncrease() {
+        var currentGameUiState = viewModel.uiState.value
+        val correctPlayerWord = getUnscrambledWord(currentGameUiState.currentScrambleWord)
+        viewModel.updateUserGuess(correctPlayerWord)
+        viewModel.checkUserGuess()
+
+        currentGameUiState = viewModel.uiState.value
+        val lastWordCount = currentGameUiState.currentWordCount
+        viewModel.skipWord()
+        currentGameUiState = viewModel.uiState.value
+        // Assert that score remains unchanged after word is skipped.
+        assertEquals(SCORE_AFTER_FIRST_CORRECT_ANSWER, currentGameUiState.score)
+        // Assert that word count is increased by 1 after word is skipped.
+        assertEquals(lastWordCount + 1, currentGameUiState.currentWordCount)
+    }
 }
