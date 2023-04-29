@@ -1,0 +1,31 @@
+<resources>
+    <string name="app_name">My City</string>
+    <string name="category_screen">Category</string>
+    <string name="detail_screen">Recommended Place</string>
+    <string name="category_one">Food</string>
+    <string name="category_two">Drink</string>
+    <string name="category_three">View</string>
+    <string name="category_four">Building</string>
+    <string name="category_five">Company</string>
+    <string name="category_one_recommendation_one">Bún Chả</string>
+    <string name="category_one_recommendation_two">Phở</string>
+    <string name="category_one_recommendation_three">Bún Cua</string>
+    <string name="category_one_recommendation_four">Cơm Tấm</string>
+    <string name="category_one_recommendation_five">Bánh Canh</string>
+    <string name="category_two_recommendation_one">Cafe</string>
+    <string name="category_two_recommendation_two">Matcha</string>
+    <string name="category_two_recommendation_three">Bạc Sửu</string>
+    <string name="category_two_recommendation_four">Nước mía</string>
+    <string name="category_two_recommendation_five">Quất Lắc Sưa</string>
+    <string name="category_three_recommendation_one">Hoàng Thành Thăng Long</string>
+    <string name="category_three_recommendation_two">Chùa</string>
+    <string name="category_three_recommendation_three">Lăng Bác</string>
+    <string name="category_three_recommendation_four">Dinh Độc Lập</string>
+    <string name="category_three_recommendation_five">Landmark 81</string>
+    <string name="category_four_recommendation_one">FPT</string>
+    <string name="category_four_recommendation_two">VNPT</string>
+    <string name="category_four_recommendation_three">Viettle</string>
+    <string name="category_four_recommendation_four">Mobifone</string>
+    <string name="category_four_recommendation_five">Vingroup</string>
+    <string name="description">Best of the best</string>
+</resources>
