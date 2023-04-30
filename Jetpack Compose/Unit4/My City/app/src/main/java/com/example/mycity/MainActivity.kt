@@ -32,7 +32,6 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.example.mycity.data.DataSource
-import com.example.mycity.model.Recommendation
 import com.example.mycity.ui.screen.CategoryScreen
 import com.example.mycity.ui.screen.DetailScreen
 import com.example.mycity.ui.screen.HomeScreen
@@ -67,15 +66,16 @@ fun MyCityApp(
     val currentScreen = Screen.valueOf(
         currentBackStack?.destination?.route ?: Screen.HomeScreen.name
     )
-    val index = viewModel.appState.collectAsState().value
-    val recommendedList = listOfNotNull(DataSource.abc[index.categoryIndex])[0]
+    val state = viewModel.appState.collectAsState().value
+    val categoryIndex = state.categoryIndex
+    val detailIndex = state.detailIndex
+    val recommendedList = state.recommendedList
     Scaffold(
         topBar = {
             AppBar(
                 currentScreen = currentScreen,
-                categoryIndex = index.categoryIndex,
-                detailIndex = index.detailIndex,
-                recommendedList = recommendedList,
+                categoryTopBarName = DataSource.categoryList[categoryIndex].name,
+                detailTopBarName = recommendedList[detailIndex].name,
                 navController = navController,
                 onClick = {
                     navController.popBackStack()
@@ -108,9 +108,9 @@ fun MyCityApp(
             }
             composable(Screen.DetailScreen.name) {
                 DetailScreen(
-                    name = recommendedList[index.detailIndex].name,
-                    image = recommendedList[index.detailIndex].image,
-                    description = recommendedList[index.detailIndex].description,
+                    name = recommendedList[state.detailIndex].name,
+                    image = recommendedList[state.detailIndex].image,
+                    description = recommendedList[state.detailIndex].description,
                 )
             }
         }
@@ -121,17 +121,16 @@ fun MyCityApp(
 @Composable
 fun AppBar(
     currentScreen: Screen,
-    categoryIndex: Int,
-    detailIndex: Int,
-    recommendedList: List<Recommendation>,
     onClick: () -> Unit,
+    categoryTopBarName: Int,
+    detailTopBarName: Int,
     navController: NavHostController
 ) {
     lateinit var title: String
     if (currentScreen.name == Screen.CategoryScreen.name) {
-        title = stringResource(id = DataSource.categoryList[categoryIndex].name) + " Recommended"
+        title = stringResource(id = categoryTopBarName) + " Recommended"
     } else if (currentScreen.name == Screen.DetailScreen.name) {
-        title = stringResource(id = recommendedList[detailIndex].name)
+        title = stringResource(id = detailTopBarName)
     } else {
         title = "Category"
     }
