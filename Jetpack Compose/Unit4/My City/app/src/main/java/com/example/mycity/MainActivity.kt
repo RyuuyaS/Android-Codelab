@@ -3,6 +3,7 @@ package com.example.mycity
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
@@ -141,10 +142,10 @@ fun AppBar(
                 fontSize = 30.sp,
                 fontWeight =
                 FontWeight.Bold,
-                lineHeight = 40.sp
+                lineHeight = 40.sp,
+                modifier = Modifier.fillMaxHeight()
             )
         },
-        modifier = Modifier,
         navigationIcon = {
             if (navController.previousBackStackEntry != null) {
                 IconButton(onClick = onClick) {
